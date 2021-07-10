@@ -21,12 +21,13 @@ function getRows(callback) {
 }
 
 let index = 0;
-schedule.scheduleJob('0 * * * *', () => {getRows(main, index); index++;})
+schedule.scheduleJob('* * * * *', () => {getRows(main);})
 //getRows(main);
 
 //setInterval(() => {index++; getRows(main)}, 1000 * 60 * 60)
 
-function main(phrases, i) {
-    if (i >= phrases.length) i = i % phrases.length;
-    bot.sendMessage(CHAT_ID, phrases[i][0])
+function main(phrases) {
+    if (index >= phrases.length) index = index % phrases.length;
+    bot.sendMessage(CHAT_ID, phrases[index][0]);
+    index++;
 }
