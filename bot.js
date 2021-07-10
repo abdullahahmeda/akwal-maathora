@@ -3,8 +3,8 @@ require('dotenv').config();
 const sheets = require('./sheets');
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = '1851135512:AAGtMvlMHXEKpNFd_0GnrvM6H1hkpTtBS_c';
-const CHAT_ID = "-1001598728604";
+const token = process.env.TELEGRAM_BOT_TOKEN;
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
