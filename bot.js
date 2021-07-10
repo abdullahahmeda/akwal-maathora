@@ -19,7 +19,7 @@ function getRows(callback) {
     })
 }
 
-let index = 7113;
+let index = 0;
 getRows(main);
 setInterval(() => {index++; getRows(main)}, 1000 * 60 * 60)
 
