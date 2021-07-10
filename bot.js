@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
+const schedule = require('node-schedule');
 const sheets = require('./sheets');
 
 // replace the value below with the Telegram token you receive from @BotFather
@@ -20,8 +21,10 @@ function getRows(callback) {
 }
 
 let index = 0;
-getRows(main);
-setInterval(() => {index++; getRows(main)}, 1000 * 60 * 60)
+schedule.scheduleJob('0 * * * *', () => {getRows(main); index++;})
+//getRows(main);
+
+//setInterval(() => {index++; getRows(main)}, 1000 * 60 * 60)
 
 function main(phrases) {
     if (index >= phrases.length) index = index % phrases.length;
