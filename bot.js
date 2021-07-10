@@ -19,10 +19,11 @@ function getRows(callback) {
     })
 }
 
-let index = 0;
+let index = 7113;
 getRows(main);
-setInterval(() => {index++; getRows(main)}, 1000 * 60 * 60)
+setInterval(() => {index++; getRows(main)}, 10000 * 60 * 60)
 
 function main(phrases) {
-    bot.sendMessage(CHAT_ID, phrases[index % phrases.length][0])
+    if (index >= phrases.length) index = index % phrases.length;
+    bot.sendMessage(CHAT_ID, phrases[index][0])
 }
