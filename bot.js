@@ -20,14 +20,16 @@ function getRows(callback) {
     })
 }
 
+console.log('Bot has started');
 let index = 0;
-schedule.scheduleJob('* * * * *', () => {getRows(main);})
+schedule.scheduleJob('* * * * *', () => getRows(main))
 //getRows(main);
 
 //setInterval(() => {index++; getRows(main)}, 1000 * 60 * 60)
 
 function main(phrases) {
     if (index >= phrases.length) index = index % phrases.length;
+    console.log(`[${new Date().toLocaleString()}] ${phrases[index][0]}`)
     bot.sendMessage(CHAT_ID, phrases[index][0]);
     index++;
 }
