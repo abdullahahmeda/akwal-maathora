@@ -22,7 +22,7 @@ function getRows(callback) {
 
 console.log('Bot has started');
 let index = 0;
-schedule.scheduleJob('* * * * *', () => getRows(main))
+schedule.scheduleJob('0 * * * *', () => getRows(main))
 //getRows(main);
 
 //setInterval(() => {index++; getRows(main)}, 1000 * 60 * 60)
