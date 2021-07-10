@@ -21,7 +21,7 @@ function getRows(callback) {
 
 let index = 7113;
 getRows(main);
-setInterval(() => {index++; getRows(main)}, 10000 * 60 * 60)
+setInterval(() => {index++; getRows(main)}, 1000 * 60 * 60)
 
 function main(phrases) {
     if (index >= phrases.length) index = index % phrases.length;
