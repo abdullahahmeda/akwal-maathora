@@ -5,6 +5,18 @@ require('dotenv').config();
 const schedule = require('node-schedule');
 const sheets = require('./sheets');
 
+var Twit = require('twit')
+ 
+var TwitClient = new Twit({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+  timeout_ms: 60*1000,  // optional HTTP request timeout to apply to all requests.
+  strictSSL: false,     // optional - requires SSL certificates to be valid.
+})
+
+
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -44,6 +56,9 @@ function main(phrases) {
     if (index >= phrases.length) index = index % phrases.length;
     console.log(`[${new Date().toLocaleString()}] ${phrases[index][0]}`)
     bot.sendMessage(CHAT_ID, phrases[index][0]);
+    TwitClient.post('statuses/update', { status: phrases[index][0] }, function(err, data, response) {
+        if (err) {console.log('Twitter Error!'); console.log(err); return;}
+    })
     index++;
     try {
         fs.writeFileSync(LASTINDEXFILE, `${index}`);
