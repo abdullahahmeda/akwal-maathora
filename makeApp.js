@@ -48,12 +48,14 @@ module.exports = async ({ twitterIndex = 0, telegramIndex = 0 } = {}) => {
     }
   })
   telegramBot.on('callback_query', async context => {
+    console.log(context)
     if (context.data === SEND_ANOTHER_MESSAGE) {
       const sender = await telegramBot.getChatMember(
         context.message.chat.id,
         context.from.id
       )
       if (
+        context.message?.chat?.type === 'private' ||
         sender.status === 'creator' ||
         sender.can_send_messages ||
         sender.can_post_messages
