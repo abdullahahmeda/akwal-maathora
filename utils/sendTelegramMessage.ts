@@ -5,7 +5,7 @@ export async function sendTelegramMessage (telegramId: number, message: string) 
   // const message = phrases?.[messageIndex]?.[0] || ''
   if (message !== '') {
     try {
-      await telegramBot.sendMessage(telegramId, message, {
+      await telegramBot.telegram.sendMessage(telegramId, message, {
         disable_notification: true,
         reply_markup: {
           inline_keyboard: [

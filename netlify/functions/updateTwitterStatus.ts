@@ -20,7 +20,6 @@ const myHandler: Handler = async (
   const status = phrases?.[twitterIndex]?.[0] || ''
   if (status.trim() !== '') await updateTwitterStatus(status)
 
-  // TODO:
   await updateTwitterIndex(twitterIndex + 1)
 
   return { statusCode: 200 }
