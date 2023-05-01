@@ -4,12 +4,7 @@ import { telegramBot } from '../../telegram-bot'
 import { addSubscriber, removeSubscriber } from '../../services/subscribers'
 import { getPhrases } from '../../services/phrases'
 import { sendTelegramMessage } from '../../utils/sendTelegramMessage'
-import {
-  ChatMemberAdministrator,
-  ChatMemberRestricted,
-  Update
-} from 'telegraf/typings/core/types/typegram'
-import { message } from 'telegraf/filters'
+import { Update } from 'node-telegram-bot-api'
 import { getRandomInt } from '../../utils/common'
 
 const handler: Handler = async (
@@ -17,50 +12,56 @@ const handler: Handler = async (
   context: HandlerContext
 ) => {
   const update: Update = JSON.parse(event.body!)
-  await telegramBot.handleUpdate(update)
-
+  const me = await telegramBot.getMe()
   const phrases = (await getPhrases()) as string[][]
 
-  telegramBot.on('callback_query', async ctx => {
-    if ((ctx.callbackQuery as any).data === 'send_another_message') {
-      const sender = await ctx.telegram.getChatMember(
-        ctx.chat!.id,
-        ctx.from!.id
+  if (update.callback_query) {
+    if (update.callback_query.data === 'send_another_message') {
+      const sender = await telegramBot.getChatMember(
+        update.callback_query!.message!.chat!.id,
+        update.callback_query.from!.id
       )
       if (
-        ctx.chat?.type === 'private' ||
+        update.callback_query.message!.chat!.type === 'private' ||
         sender.status === 'creator' ||
-        (sender as ChatMemberRestricted).can_send_messages ||
-        (sender as ChatMemberAdministrator).can_post_messages
+        sender.can_send_messages ||
+        sender.can_post_messages
       ) {
         const message = phrases[getRandomInt(0, phrases.length - 1)]?.[0] || ''
-        await sendTelegramMessage(ctx.chat!.id, message)
-        await ctx.telegram.answerCbQuery(ctx.callbackQuery.id)
+        await sendTelegramMessage(update.message!.chat!.id, message)
+        await telegramBot.answerCallbackQuery(update.callback_query.id)
       } else {
-        await ctx.telegram.answerCbQuery(ctx.callbackQuery.id, undefined, {
-          url: `t.me/${ctx.botInfo.username}?start=123`
+        await telegramBot.answerCallbackQuery(update.callback_query.id, {
+          url: `t.me/${me.username}?start=123`
         })
       }
     }
-  })
+    return { statusCode: 200 }
+  }
 
-  telegramBot.on(
-    'my_chat_member',
-    async ctx => await onMyChatMember(ctx.update)
-  )
+  if (update.my_chat_member) {
+    await onMyChatMember(update)
+    return { statusCode: 200 }
+  }
 
-  telegramBot.on(message('text'), context => {
+  if (update.message?.text) {
     const message = phrases[getRandomInt(0, phrases.length - 1)]?.[0] || ''
-    sendTelegramMessage(context.chat.id, message)
-  })
+    sendTelegramMessage(update.message!.chat.id, message)
+  }
+
+  // telegramBot.on(message('text'), context => {
+  //   const message = phrases[getRandomInt(0, phrases.length - 1)]?.[0] || ''
+  //   sendTelegramMessage(context.chat.id, message)
+  // })
   return { statusCode: 200 }
 }
 
-async function onMyChatMember (update: Update.MyChatMemberUpdate) {
-  console.log('chat member', update)
-  if (['left', 'kicked'].includes(update.my_chat_member.new_chat_member.status))
-    await removeSubscriber(update.my_chat_member.chat.id)
-  else await addSubscriber(update.my_chat_member.chat.id)
+async function onMyChatMember (update: Update) {
+  if (
+    ['left', 'kicked'].includes(update.my_chat_member!.new_chat_member.status)
+  )
+    await removeSubscriber(update.my_chat_member!.chat.id)
+  else await addSubscriber(update.my_chat_member!.chat.id)
 }
 
 export { handler }

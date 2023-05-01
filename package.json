@@ -13,8 +13,9 @@
   "dependencies": {
     "@netlify/functions": "^1.4.0",
     "@planetscale/database": "^1.7.0",
+    "@types/node-telegram-bot-api": "^0.61.6",
     "googleapis": "^97.0.0",
-    "telegraf": "^4.12.2",
+    "node-telegram-bot-api": "^0.61.0",
     "twit": "^2.2.11",
     "undici": "^5.22.0"
   },
