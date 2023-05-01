@@ -1,4 +1,9 @@
-import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions'
+import {
+  Handler,
+  HandlerEvent,
+  HandlerContext,
+  schedule
+} from '@netlify/functions'
 import { getTelegramIndex, updateTelegramIndex } from '../../services/settings'
 import { getSubscribers } from '../../services/subscribers'
 import { sendTelegramMessage } from '../../utils/sendTelegramMessage'
