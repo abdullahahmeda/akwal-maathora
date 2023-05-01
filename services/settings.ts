@@ -2,6 +2,7 @@ import { getDbConnection } from '../utils/getDbConnection'
 
 export const getTelegramIndex = async () => {
   const connection = await getDbConnection()
+  console.log('connected succss')
   const results = await connection.execute(
     'SELECT value FROM settings WHERE name = ?',
     ['telegram_index'],
