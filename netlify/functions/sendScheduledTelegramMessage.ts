@@ -15,8 +15,11 @@ const myHandler: Handler = async (
   context: HandlerContext
 ) => {
   let telegramIndex = await getTelegramIndex()
+  console.log('telegramIndex', telegramIndex)
   const subscribers = await getSubscribers()
+  console.log('subscribers', subscribers)
   const phrases = (await getPhrases()) as string[][]
+  console.log('phrases', phrases)
   if (telegramIndex >= phrases.length) {
     telegramIndex = telegramIndex % phrases.length
   }
