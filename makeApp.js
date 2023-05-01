@@ -3,7 +3,7 @@ const scheduleManager = require('node-schedule')
 const telegramBot = require('./telegram-bot')
 const { getRandomInt, sleep } = require('./utils/common')
 const sheetsClientUtils = require('./utils/sheets-client')
-const twitterClientUtils = require('./utils/twitter-client')
+const twitterClientUtils = require('./utils/updateTwitterStatus')
 const db = require('./db')
 
 const SEND_ANOTHER_MESSAGE = 'send_another_message'

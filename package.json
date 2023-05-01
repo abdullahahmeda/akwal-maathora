@@ -11,15 +11,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@netlify/functions": "^1.4.0",
+    "@planetscale/database": "^1.7.0",
     "better-sqlite3": "^7.5.0",
     "dotenv": "^10.0.0",
     "googleapis": "^97.0.0",
     "node-schedule": "^2.0.0",
-    "node-telegram-bot-api": "^0.53.0",
+    "node-telegram-bot-api": "^0.61.0",
+    "telegraf": "^4.12.2",
     "twit": "^2.2.11"
   },
   "devDependencies": {
+    "@types/node-telegram-bot-api": "^0.61.6",
+    "@types/twit": "^2.2.31",
     "jest": "^27.5.1",
-    "standard": "^16.0.4"
+    "standard": "^16.0.4",
+    "typescript": "^5.0.4"
   }
 }
