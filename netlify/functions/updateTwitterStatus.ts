@@ -12,15 +12,15 @@ const myHandler: Handler = async (
   event: HandlerEvent,
   context: HandlerContext
 ) => {
-  // let twitterIndex = await getTwitterIndex()
-  // const phrases = (await getPhrases()) as string[][]
-  // if (twitterIndex >= phrases.length) {
-  //   twitterIndex = twitterIndex % phrases.length
-  // }
-  // const status = phrases?.[twitterIndex]?.[0] || ''
-  // if (status.trim() !== '') await updateTwitterStatus(status)
+  let twitterIndex = await getTwitterIndex()
+  const phrases = (await getPhrases()) as string[][]
+  if (twitterIndex >= phrases.length) {
+    twitterIndex = twitterIndex % phrases.length
+  }
+  const status = phrases?.[twitterIndex]?.[0] || ''
+  if (status.trim() !== '') await updateTwitterStatus(status)
 
-  // await updateTwitterIndex(twitterIndex + 1)
+  await updateTwitterIndex(twitterIndex + 1)
 
   return { statusCode: 200 }
 }

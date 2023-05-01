@@ -1,21 +1,17 @@
-import { getDbConnection } from '../utils/getDbConnection'
+import { db } from '../utils/db'
 
 export const addSubscriber = async (telegramId: number) => {
-  const connection = await getDbConnection()
-  return connection.execute(
-    'INSERT INTO subscribers (telegram_id) VALUES (?)',
-    [telegramId]
-  )
+  return db.execute('INSERT INTO subscribers (telegram_id) VALUES (?)', [
+    telegramId
+  ])
 }
 
 export const removeSubscriber = async (telegramId: number) => {
-  const connection = await getDbConnection()
-  return connection.execute('DELETE FROM subscribers WHERE telegram_id = ?', [
+  return db.execute('DELETE FROM subscribers WHERE telegram_id = ?', [
     telegramId
   ])
 }
 
 export const getSubscribers = async () => {
-  const connection = await getDbConnection()
-  return (await connection.execute('SELECT * FROM subscribers')).rows
+  return (await db.execute('SELECT * FROM subscribers')).rows
 }
