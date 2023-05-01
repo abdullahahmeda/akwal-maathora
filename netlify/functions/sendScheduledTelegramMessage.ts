@@ -8,7 +8,7 @@ import { getTelegramIndex, updateTelegramIndex } from '../../services/settings'
 import { getSubscribers } from '../../services/subscribers'
 import { sendTelegramMessage } from '../../utils/sendTelegramMessage'
 import { getPhrases } from '../../services/phrases'
-import { getRandomInt, sleep } from '../../utils/common'
+import { sleep } from '../../utils/common'
 
 const myHandler: Handler = async (
   event: HandlerEvent,
@@ -30,7 +30,6 @@ const myHandler: Handler = async (
   return { statusCode: 200 }
 }
 
-// const handler = schedule('0 8,20 * * *', myHandler)
-const handler = schedule('* * * * *', myHandler)
+const handler = schedule('0 8,20 * * *', myHandler)
 
 export { handler }
