@@ -57,6 +57,7 @@ const handler: Handler = async (
 }
 
 async function onMyChatMember (update: Update.MyChatMemberUpdate) {
+  console.log('chat member', update)
   if (['left', 'kicked'].includes(update.my_chat_member.new_chat_member.status))
     await removeSubscriber(update.my_chat_member.chat.id)
   else await addSubscriber(update.my_chat_member.chat.id)
