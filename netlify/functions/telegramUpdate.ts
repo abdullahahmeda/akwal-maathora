@@ -12,7 +12,6 @@ const handler: Handler = async (
   context: HandlerContext
 ) => {
   const update: Update = JSON.parse(event.body!)
-  console.log(update)
   const me = await telegramBot.getMe()
   const phrases = (await getPhrases()) as string[][]
 
