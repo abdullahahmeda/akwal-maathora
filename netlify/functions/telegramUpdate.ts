@@ -53,10 +53,6 @@ const handler: Handler = async (
     sendTelegramMessage(update.message!.chat.id, message)
   }
 
-  // telegramBot.on(message('text'), context => {
-  //   const message = phrases[getRandomInt(0, phrases.length - 1)]?.[0] || ''
-  //   sendTelegramMessage(context.chat.id, message)
-  // })
   return { statusCode: 200 }
 }
 
