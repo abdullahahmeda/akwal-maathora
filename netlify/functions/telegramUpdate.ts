@@ -12,13 +12,14 @@ const handler: Handler = async (
   context: HandlerContext
 ) => {
   const update: Update = JSON.parse(event.body!)
+  console.log(update)
   const me = await telegramBot.getMe()
   const phrases = (await getPhrases()) as string[][]
 
   if (update.callback_query) {
     if (update.callback_query.data === 'send_another_message') {
       const sender = await telegramBot.getChatMember(
-        update.callback_query!.message!.chat!.id,
+        update.callback_query.message!.chat!.id,
         update.callback_query.from!.id
       )
       if (
@@ -28,7 +29,10 @@ const handler: Handler = async (
         sender.can_post_messages
       ) {
         const message = phrases[getRandomInt(0, phrases.length - 1)]?.[0] || ''
-        await sendTelegramMessage(update.message!.chat!.id, message)
+        await sendTelegramMessage(
+          update.callback_query.message!.chat!.id,
+          message
+        )
         await telegramBot.answerCallbackQuery(update.callback_query.id)
       } else {
         await telegramBot.answerCallbackQuery(update.callback_query.id, {
