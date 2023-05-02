@@ -45,7 +45,7 @@ const handler: Handler = async (
 
   if (update.my_chat_member) {
     await onMyChatMember(update)
-    return { statusCode: 200 }
+    // return { statusCode: 200 }
   }
 
   if (update.message?.text) {
