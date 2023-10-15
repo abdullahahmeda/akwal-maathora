@@ -1,10 +1,8 @@
-import Twit from 'twit'
+import TwitterApi from "twitter-api-v2";
 
-export const twitterClient = new Twit({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token: process.env.TWITTER_ACCESS_TOKEN,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-  timeout_ms: process.env.NODE_ENV === 'test' ? 0 : 60 * 1000, // optional HTTP request timeout to apply to all requests.
-  strictSSL: false // optional - requires SSL certificates to be valid.
-})
+export const twitterClient = new TwitterApi({
+  appKey: process.env.TWITTER_CONSUMER_KEY as string,
+  appSecret: process.env.TWITTER_CONSUMER_SECRET as string,
+  accessToken: process.env.TWITTER_ACCESS_TOKEN as string,
+  accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET as string,
+});
