@@ -18,7 +18,13 @@ const myHandler: Handler = async (
     twitterIndex = twitterIndex % phrases.length;
   }
   const status = phrases?.[twitterIndex]?.[0] || "";
-  if (status.trim() !== "") await updateTwitterStatus(status);
+  if (status.trim() !== "") {
+    try {
+      await updateTwitterStatus(status);
+    } catch (error) {
+      // Just update the index
+    }
+  }
 
   await updateTwitterIndex(twitterIndex + 1);
 
