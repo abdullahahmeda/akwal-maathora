@@ -12,21 +12,25 @@ const myHandler: Handler = async (
   event: HandlerEvent,
   context: HandlerContext,
 ) => {
-  let twitterIndex = await getTwitterIndex();
   const phrases = (await getPhrases()) as string[][];
-  if (twitterIndex >= phrases.length) {
-    twitterIndex = twitterIndex % phrases.length;
-  }
-  const status = phrases?.[twitterIndex]?.[0] || "";
-  if (status.trim() !== "") {
-    try {
-      await updateTwitterStatus(status);
-    } catch (error) {
-      // Do nothing
+  let twitterIndex = await getTwitterIndex();
+  let hasPosted = false;
+  while (!hasPosted) {
+    if (twitterIndex >= phrases.length) {
+      twitterIndex = twitterIndex % phrases.length;
     }
-  }
+    const status = phrases?.[twitterIndex]?.[0] || "";
+    if (status.trim() !== "") {
+      try {
+        await updateTwitterStatus(status);
+        hasPosted = true;
+      } catch (error) {
+        // Do nothing
+      }
+    }
 
-  await updateTwitterIndex(twitterIndex + 1);
+    await updateTwitterIndex(++twitterIndex);
+  }
 
   return { statusCode: 200 };
 };
