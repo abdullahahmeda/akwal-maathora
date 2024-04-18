@@ -2,7 +2,7 @@ import {
   Handler,
   HandlerEvent,
   HandlerContext,
-  // schedule,
+  schedule,
 } from "@netlify/functions";
 import { getPhrases } from "../../services/phrases";
 import { updateTwitterStatus } from "../../utils/updateTwitterStatus";
@@ -35,7 +35,6 @@ const myHandler: Handler = async (
   return { statusCode: 200 };
 };
 
-export const handler = myHandler;
-// const handler = schedule("@hourly", myHandler);
+const handler = schedule("@hourly", myHandler);
 
-// export { handler };
+export { handler };
