@@ -35,10 +35,6 @@ const myHandler: Handler = async (
   return { statusCode: 200 };
 };
 
-const handler = schedule("@hourly", myHandler);
+export const handler = schedule("@hourly", myHandler);
 
-export { handler };
-
-// export const handler = async (event: HandlerEvent, context: HandlerContext) => {
-//   return { statusCode: 200 };
-// };
+// export { handler };
