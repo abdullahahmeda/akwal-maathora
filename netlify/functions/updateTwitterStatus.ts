@@ -35,6 +35,6 @@ const myHandler: Handler = async (
   return { statusCode: 200 };
 };
 
-export const handler = schedule("@hourly", myHandler);
+const handler = schedule("@hourly", myHandler);
 
-// export { handler };
+export { handler };
