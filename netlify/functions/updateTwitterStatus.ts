@@ -2,7 +2,7 @@ import {
   Handler,
   HandlerEvent,
   HandlerContext,
-  schedule,
+  // schedule,
 } from "@netlify/functions";
 import { getPhrases } from "../../services/phrases";
 import { updateTwitterStatus } from "../../utils/updateTwitterStatus";
