@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@libsql/client": "^0.6.0",
     "@netlify/functions": "^1.4.0",
-    "@planetscale/database": "^1.7.0",
     "googleapis": "^97.0.0",
     "node-telegram-bot-api": "^0.61.0",
     "twitter-api-v2": "^1.15.2",
