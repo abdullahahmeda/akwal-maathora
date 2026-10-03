@@ -30,6 +30,6 @@ const myHandler: Handler = async (
   return { statusCode: 200 }
 }
 
-const handler = schedule('0 8,20 * * *', myHandler)
+const handler = schedule('0 2,8,14,20 * * *', myHandler)
 
 export { handler }
